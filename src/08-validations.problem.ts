@@ -4,23 +4,31 @@ import { expect, it } from "vitest";
 import { z } from "zod";
 
 const Form = z.object({
-  name: z.string(),
+  name: z.string().min(1),
   //             ^ 🕵️‍♂️
-  phoneNumber: z.string().optional(),
+  phoneNumber: z.string().min(5).max(20).optional(),
   //                    ^ 🕵️‍♂️
-  email: z.string(),
+  email: z.string().email(),
   //              ^ 🕵️‍♂️
-  website: z.string().optional(),
+  website: z.string().url().optional(),
   //                ^ 🕵️‍♂️
 });
 
 export const validateFormInput = (values: unknown) => {
-  const parsedData = Form.parse(values);
-
-  return parsedData;
+  return Form.parse(values);
 };
 
 // TESTS
+
+it("Should fail if you pass a name with less than 1 character", async () => {
+  expect(() =>
+    validateFormInput({
+      name: "",
+      email: "matt@example.com",
+      phoneNumber: "1",
+    }),
+  ).toThrowError("String must contain at least 1 character(s)");
+});
 
 it("Should fail if you pass a phone number with too few characters", async () => {
   expect(() =>

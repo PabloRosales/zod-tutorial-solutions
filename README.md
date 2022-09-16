@@ -1,3 +1,5 @@
+**Note**: This a fork with the solutions implemented.
+
 # Zod Tutorial
 
 <a href="https://totaltypescript.com/tutorials/zod"><img src="https://res.cloudinary.com/total-typescript/image/upload/v1662635438/zod-tutorial/card_2x_ywsvl1.png" alt="zod tutorial" /></a>
